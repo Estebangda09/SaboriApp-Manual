@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaboriApp - Manual de Ventas y Usuario Interactivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+      <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .flash-update {
+            animation: flashBg 1s ease-out;
+        }
+        @keyframes flashBg {
+            0% { background-color: #f59e0b; }
+            100% { background-color: transparent; }
+        }
+        .highlight-card {
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+            border-color: #6366f1;
+        }
+        /* Custom Fullscreen styling inside browser */
+        :-webkit-full-screen #tv-simulation-container {
+            width: 100%;
+            height: 100%;
+            background-color: #030712;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        :-ms-fullscreen #tv-simulation-container {
+            width: 100%;
+            height: 100%;
+            background-color: #030712;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        :fullscreen #tv-simulation-container {
+            width: 100%;
+            height: 100%;
+            background-color: #030712;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <header class="bg-indigo-950 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Clickable Logo taking the user to INICIO -->
+            <div class="flex items-center space-x-2 cursor-pointer select-none hover:text-indigo-200 transition-colors" id="header-logo-home">
+                <h1 class="text-2xl font-extrabold tracking-tight italic">SABORIAPP <span class="text-sm font-normal not-italic text-indigo-300 ml-2"> <br>Menú Digital Inteligente</span></h1>
+            </div>
+            <nav class="hidden lg:flex space-x-1 overflow-x-auto" id="main-nav">
+                <button class="nav-btn active px-4 py-2 rounded-md font-medium bg-indigo-700 text-white transition-colors" data-target="tab-intro">Inicio</button>
+                <button class="nav-btn px-4 py-2 rounded-md font-medium text-indigo-200 hover:bg-indigo-900 hover:text-white transition-colors" data-target="tab-analisis">El Problema y la Solución</button>
+                <button class="nav-btn px-4 py-2 rounded-md font-medium text-indigo-200 hover:bg-indigo-900 hover:text-white transition-colors" data-target="tab-interfaz">Explorador del Sistema</button>
+                <button class="nav-btn px-4 py-2 rounded-md font-medium text-indigo-200 hover:bg-indigo-900 hover:text-white transition-colors" data-target="tab-simulador">Demo & Simulador</button>
+                <button class="nav-btn px-4 py-2 rounded-md font-medium text-indigo-200 hover:bg-indigo-900 hover:text-white transition-colors" data-target="tab-precios">Métricas y Planes</button>
+                <button class="nav-btn px-4 py-2 rounded-md font-medium text-indigo-200 hover:bg-indigo-900 hover:text-white transition-colors" data-target="tab-faq">Soporte (FAQ)</button>
+            </nav>
+            <div class="lg:hidden">
+                <select id="mobile-nav" class="bg-indigo-900 text-white border border-indigo-700 p-2 rounded text-sm">
+                    <option value="tab-intro">Inicio</option>
+                    <option value="tab-analisis">El Problema y la Solución</option>
+                    <option value="tab-interfaz">Explorador del Sistema</option>
+                    <option value="tab-simulador">Demo & Simulador</option>
+                    <option value="tab-precios">Métricas y Planes</option>
+                    <option value="tab-faq">Soporte</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- TAB 1: INICIO -->
+        <section id="tab-intro" class="tab-content active">
+            
+            <!-- Hero Pitch Section -->
+            <div class="bg-white rounded-2xl shadow-sm border border-indigo-100 p-8 md:p-12 text-center max-w-4xl mx-auto mb-10">
+                <span class="px-4 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold uppercase tracking-widest">SaboriApp Realtime</span>
+                
+                <h2 class="text-2xl md:text-4xl font-extrabold text-indigo-950 mt-4 mb-6 leading-tight">
+                    ¿Sabías que el 30% de la frustración de un cliente ocurre cuando pide un sabor que está en la pizarra pero ya se agotó?
+                </h2>
+                
+                <p class="text-base md:text-lg text-slate-700 leading-relaxed max-w-3xl mx-auto mb-6">
+                    Ayudamos a los locales gastronómicos a digitalizar su stock en tiempo real con un sistema que conecta el panel de control directamente con las pantallas del local. 
+                    Si marcas un sabor como <strong class="text-indigo-900 font-semibold">'agotado'</strong>  desaparece de la vista del público al instante.
+                </p>
+                
+                <div class="p-4 bg-amber-50 rounded-xl border border-amber-100 max-w-2xl mx-auto mb-8">
+                    <p class="text-sm text-amber-900 font-medium">
+                        Así evitas decepciones, eliminas el gasto en cartelería de papel y controlas todas tus sucursales desde un solo lugar. ¿Te gustaría modernizar tu pizarra y dejar de pedir disculpas por lo que no tienes?
+                    </p>
+                </div>
+
+                <!-- Added the highlight button directly underneath the main pitch callout -->
+                <button id="btn-highlight-demo" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl text-sm shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+                    Ir al Simulador Realtime &rarr;
+                </button>
+            </div>
+
+            <!-- Video Publicitario Integrado -->
+            <div class="bg-slate-900 rounded-2xl shadow-xl border border-slate-800 p-6 mb-12 max-w-3xl mx-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-amber-500 font-bold text-sm tracking-wider uppercase flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span> Video de Uso SaboriApp
+                    </span>
+                    <span class="text-xs text-slate-400 font-mono">saboriapp.mp4</span>
+                </div>
+                
+                <div class="aspect-video w-full rounded-lg overflow-hidden bg-black flex justify-center items-center">
+                    <video id="promo-video" controls class="w-full h-full object-contain">
+                        <source src="saboriapp.mp4" type="video/mp4">
+                        Tu navegador no soporta el formato de video.
+                    </video>
+                </div>
+                
+                
+            </div>
+
+           
+            <div class="bg-indigo-900 text-white rounded-2xl p-8 shadow-md">
+                <h3 class="text-xl font-bold mb-3 text-center text-amber-400">Arquitectura e Intercambio de Datos en Tiempo Real</h3>
+                <p class="text-sm text-indigo-200 text-center mb-8 max-w-2xl mx-auto">
+                    La tecnología de subscripciones en tiempo real distribuye cualquier evento de stock o cambio de precio de forma directa a la red de cartelería.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center max-w-4xl mx-auto">
+                    <div class="bg-indigo-950 p-5 rounded-xl border border-indigo-800 flex flex-col items-center">
+                        <div class="text-3xl mb-2">&#x1F4F1;</div>
+                        <h4 class="font-bold text-indigo-300">Dispositivo Móvil</h4>
+                        <p class="text-xs text-indigo-200 mt-1">El encargado actualiza la existencia o el precio del producto.</p>
+                    </div>
+                    <div class="bg-indigo-950 p-5 rounded-xl border border-indigo-800 flex flex-col items-center">
+                        <div class="text-3xl mb-2">&#x2601;</div>
+                        <h4 class="font-bold text-indigo-300">Base de Datos Remota</h4>
+                        <p class="text-xs text-indigo-200 mt-1">La nube distribuye y propaga el evento de cambio inmediatamente.</p>
+                    </div>
+                    <div class="bg-indigo-950 p-5 rounded-xl border border-indigo-800 flex flex-col items-center">
+                        <div class="text-3xl mb-2">&#x1F4FA;</div>
+                        <h4 class="font-bold text-indigo-300">Pantallas del Local</h4>
+                        <p class="text-xs text-indigo-200 mt-1">Los televisores del salón procesan y actualizan la vista del público.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: EL PROBLEMA Y LA SOLUCIÓN -->
+        <section id="tab-analisis" class="tab-content">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <h2 class="text-3xl font-bold text-indigo-950">¿Por qué SaboriApp?</h2>
+                <p class="text-slate-600 mt-2">La administración analógica e ineficiente frente a un sistema nativo en la nube.</p>
+            </div>
+
+            <!-- Grid de Comparación Interactiva -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                
+                <!-- Columna: El Problema -->
+                <div class="bg-rose-50 border border-rose-100 p-8 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-3xl text-rose-600">&#x274C;</span>
+                        <h3 class="text-2xl font-bold text-rose-950">El Problema: El Caos detrás del Mostrador</h3>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="p-4 bg-white rounded-xl shadow-sm border border-rose-100">
+                            <h4 class="font-bold text-rose-900 flex items-center gap-2">
+                                <span>&#x1F4CB;</span> Pizarras Estáticas y Obsoletas
+                            </h4>
+                            <p class="text-sm text-slate-600 mt-1">
+                                El sabor del mes cambió, pero la pizarra sigue igual. El cliente elige con ilusión, solo para recibir un amargo: <em>"Ese no nos queda"</em>.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl shadow-sm border border-rose-100">
+                            <h4 class="font-bold text-rose-900 flex items-center gap-2">
+                                <span>&#x1F4E5;</span> Fugas de Información
+                            </h4>
+                            <p class="text-sm text-slate-600 mt-1">
+                                Diferencias críticas de stock no registradas entre la sucursal A y la sucursal B. Descoordinación de inventario.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl shadow-sm border border-rose-100">
+                            <h4 class="font-bold text-rose-900 flex items-center gap-2">
+                                <span>&#x1F6AB;</span> Personal Desorientado
+                            </h4>
+                            <p class="text-sm text-slate-600 mt-1">
+                                Alta rotación de empleados que no conocen la rotación de sabores ni la disponibilidad exacta en tiempo real para informar al cliente.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl shadow-sm border border-rose-100">
+                            <h4 class="font-bold text-rose-900 flex items-center gap-2">
+                                <span>&#x1F4B8;</span> Gasto Innecesario
+                            </h4>
+                            <p class="text-sm text-slate-600 mt-1">
+                                Impresión constante de folletos y menús físicos de papel que quedan obsoletos en días por sutiles cambios en la oferta o precios.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna: La Solución -->
+                <div class="bg-emerald-50 border border-emerald-100 p-8 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-3xl text-emerald-600">&#x2705;</span>
+                        <h3 class="text-2xl font-bold text-emerald-950">La Solución: Agilidad en la Nube</h3>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
+                            <h4 class="font-bold text-emerald-900 flex items-center gap-2">
+                                <span>&#x26A1;</span> Sincronización Total (Realtime)
+                            </h4>
+                            <p class="text-sm text-slate-600 mt-1">
+                                Si un sabor se agota en el panel, desaparece de todas las pantallas de TV y menús QR móviles en menos de un segundo gracias a la infraestructura en tiempo real.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
+                            <h4 class="font-bold text-emerald-900 flex items-center gap-2">
+                                <span>&#x1F3E2;</span> Gestión Multi-sucursal Centralizada
+                            </h4>
+                            <p class="text-sm text-slate-600 mt-1">
+                                Controla la oferta e inventario de 1 o de 50 locales de forma remota y unificada desde un único panel administrativo.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
+                            <h4 class="font-bold text-emerald-900 flex items-center gap-2">
+                                <span>&#x1F4F1;</span> Ecosistema Digital Completo
+                            </h4>
+                            <p class="text-sm text-slate-600 mt-1">
+                                Integra eficientemente el Panel Administrativo para inventarios, el Menú Digital para televisores y el Código QR para consulta directa de clientes.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl shadow-sm border border-emerald-100">
+                            <h4 class="font-bold text-emerald-900 flex items-center gap-2">
+                                <span>&#x1F33F;</span> Sostenibilidad y Ahorro (Cero Papel)
+                            </h4>
+                            <p class="text-sm text-slate-600 mt-1">
+                                Ahorro inmediato de costos fijos de imprenta. Contribuye a un local moderno y ecológico que valora el planeta y cuida sus márgenes de ganancia.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 3: EXPLORADOR DE INTERFAZ -->
+        <section id="tab-interfaz" class="tab-content">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-indigo-900 mb-2">Estructura del Sistema SaboriApp</h2>
+                <p class="text-slate-600">Familiarízate con la distribución del sistema. Consulta la guía de módulos detallada a continuación y haz clic en las secciones del panel para explorar su funcionamiento.</p>
+            </div>
+
+            <!-- Tabla de Recorrido del Sistema -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8 overflow-x-auto">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="text-lg">&#x1F4D6;</span>
+                    <h3 class="text-lg font-bold text-slate-800">Guía de Módulos y Flujo de Trabajo</h3>
+                </div>
+                <table class="min-w-full divide-y divide-slate-200 text-sm">
+                    <thead class="bg-slate-50">
+                        <tr>
+                            <th class="px-4 py-3 text-left font-semibold text-slate-700 uppercase tracking-wider">Módulo</th>
+                            <th class="px-4 py-3 text-left font-semibold text-slate-700 uppercase tracking-wider">Funcionalidad Clave</th>
+                            <th class="px-4 py-3 text-left font-semibold text-slate-700 uppercase tracking-wider">Detalles de Operación</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 text-slate-600">
+                        <tr>
+                            <td class="px-4 py-3 font-semibold text-indigo-600">Categorías</td>
+                            <td class="px-4 py-3">Organización por tipos</td>
+                            <td class="px-4 py-3">Permite clasificar los productos de forma lógica: Cremas, Frutales, Premium, Veganos, Empanadas.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold text-indigo-600">Sabores</td>
+                            <td class="px-4 py-3">Fichas descriptivas completas</td>
+                            <td class="px-4 py-3">Gestión de nombres, fotos del producto, información de alérgenos y descripciones tentadoras para el cliente.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold text-indigo-600">Sucursales</td>
+                            <td class="px-4 py-3">Distribución geográfica</td>
+                            <td class="px-4 py-3">Asignación selectiva de sabores específicos según las necesidades y logística de cada sucursal física.</td>
+                        </tr>
+                        <tr class="bg-indigo-50/50">
+                            <td class="px-4 py-3 font-semibold text-indigo-800">Stock (Real-time)</td>
+                            <td class="px-4 py-3 font-bold text-amber-600">Habilitado / Agotado instantáneo</td>
+                            <td class="px-4 py-3 text-slate-700">El switch estrella que de manera instantánea oculta o muestra el producto en todas las pantallas de salón y menús de teléfonos.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold text-indigo-600">Pantallas</td>
+                            <td class="px-4 py-3">Configuración de vistas</td>
+                            <td class="px-4 py-3">Diseño de la interfaz visual exacta que verá el consumidor final, adaptada al tamaño del salón.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Panel de exploración interactivo -->
+            <div class="flex flex-col lg:flex-row gap-8 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <!-- Panel Lateral Simulador -->
+                <div class="w-full lg:w-1/3 bg-slate-900 rounded-lg overflow-hidden flex flex-col">
+                    <div class="p-4 bg-slate-800 border-b border-slate-700">
+                        <h3 class="text-xl font-bold text-indigo-400 italic">SABORIAPP</h3>
+                    </div>
+                    <div class="flex-grow p-4 flex flex-col gap-2" id="sidebar-explorer">
+                        <button class="explorer-nav-btn flex items-center gap-3 p-3 rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition-colors text-left" data-info="cats">
+                            <span>&#x1F4C2;</span> Categorías
+                        </button>
+                        <button class="explorer-nav-btn active flex items-center gap-3 p-3 rounded-md bg-indigo-600 text-white transition-colors text-left" data-info="sabores">
+                            <span>&#x1F368;</span> Sabores
+                        </button>
+                        <button class="explorer-nav-btn flex items-center gap-3 p-3 rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition-colors text-left" data-info="sucursales">
+                            <span>&#x1F3EA;</span> Sucursales
+                        </button>
+                        <button class="explorer-nav-btn flex items-center gap-3 p-3 rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition-colors text-left" data-info="pantallas">
+                            <span>&#x1F4FA;</span> Pantallas
+                        </button>
+                        <button class="explorer-nav-btn flex items-center gap-3 p-3 rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition-colors text-left" data-info="usuarios">
+                            <span>&#x1F465;</span> Usuarios
+                        </button>
+                        <button class="explorer-nav-btn flex items-center gap-3 p-3 rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition-colors text-left" data-info="precios">
+                            <span>&#x1F4B0;</span> Precios
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Detalle Informativo -->
+                <div class="w-full lg:w-2/3 bg-indigo-50/50 p-8 rounded-lg border border-indigo-100 flex flex-col justify-center min-h-[400px]">
+                    <div id="explorer-info-panel" class="transition-opacity duration-300">
+                        <div class="inline-block px-3 py-1 bg-indigo-200 text-indigo-800 rounded-full text-sm font-semibold mb-4 tracking-wide uppercase" id="explorer-badge">MÓDULO DE CATÁLOGO</div>
+                        <h3 class="text-3xl font-bold text-indigo-900 mb-4" id="explorer-title">Sabores (Catálogo Global)</h3>
+                        <p class="text-lg text-slate-700 mb-6 leading-relaxed" id="explorer-desc">Catálogo maestro donde se dan de alta y editan las preparaciones y variedades a nivel global de la organización. Sirve de plantilla para todas las sucursales habilitadas.</p>
+                        
+                        <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm" id="explorer-action">
+                            <h4 class="font-bold text-slate-800 mb-2 border-b pb-2">Acciones principales</h4>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Permite administrar nombres, descripciones visuales, alérgenos relevantes y fotos tentadoras que ayuden a vender más.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: DEMO GUIADA Y SIMULADOR -->
+        <section id="tab-simulador" class="tab-content">
+            <div class="mb-8 text-center max-w-2xl mx-auto">
+                <h2 class="text-3xl font-bold text-indigo-900 mb-2">Simulador de Interacción Realtime</h2>
+                <p class="text-slate-600">Simula los cambios operativos directamente. Desactiva empanadas, cambia precios o usa la IA para redactar textos comerciales.</p>
+            </div>
+
+            <!-- Interacción Dividida (Panel vs TV) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12" id="simulador-section">
+                
+                <!-- Columna Izquierda: Panel de Control del Encargado -->
+                <div class="bg-white rounded-2xl shadow-md border border-slate-200 flex flex-col overflow-hidden">
+                    <div class="bg-slate-100 p-4 border-b border-slate-200 flex justify-between items-center flex-wrap gap-2">
+                        <div>
+                            <span class="text-xs text-indigo-600 font-bold uppercase tracking-wider">Operador de Sucursal</span>
+                            <h3 class="text-lg font-bold text-slate-800">Panel SaboriApp: El Talar</h3>
+                        </div>
+                        <div class="flex gap-1 bg-slate-200 p-1 rounded-lg">
+                            <button id="sim-btn-stock" class="px-3 py-1 bg-indigo-600 text-white text-xs font-semibold rounded">STOCK</button>
+                            <button id="sim-btn-price" class="px-3 py-1 text-slate-700 text-xs font-semibold rounded hover:bg-slate-300">PRECIOS</button>
+                            <button id="sim-btn-desc-ia" class="px-3 py-1 text-slate-700 text-xs font-semibold rounded hover:bg-slate-300">CREAR IA ✨</button>
+                        </div>
+                    </div>
+
+                    <!-- Cuerpo de Stock -->
+                    <div class="p-6 flex-grow" id="sim-body-stock">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="font-bold text-indigo-950">Empanadas Tradicionales</h4>
+                            <div class="flex gap-2">
+                                <button id="sim-btn-enable-all" class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-1 rounded font-bold hover:bg-emerald-200 uppercase">Habilitar Todo</button>
+                                <button id="sim-btn-disable-all" class="text-[10px] bg-rose-100 text-rose-800 px-2 py-1 rounded font-bold hover:bg-rose-200 uppercase">Pausar Todo</button>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">Haz clic en cualquier tarjeta para alternar su stock individual en tiempo real:</p>
+                        
+                        <div class="grid grid-cols-2 gap-3" id="sim-cards-grid">
+                            <button class="sim-flavor-card p-3 border-2 border-indigo-600 text-indigo-950 font-bold rounded-xl text-center transition-all hover:bg-indigo-50" data-flavor="4 Quesos" data-status="active">
+                                4 QUESOS
+                            </button>
+                            <button class="sim-flavor-card p-3 border-2 border-indigo-600 text-indigo-950 font-bold rounded-xl text-center transition-all hover:bg-indigo-50" data-flavor="Capresse" data-status="active">
+                                CAPRESSE
+                            </button>
+                            <button class="sim-flavor-card p-3 border-2 border-indigo-600 text-indigo-950 font-bold rounded-xl text-center transition-all hover:bg-indigo-50" data-flavor="Carne Picante" data-status="active">
+                                CARNE PICANTE
+                            </button>
+                            <button class="sim-flavor-card p-3 border-2 border-indigo-600 text-indigo-950 font-bold rounded-xl text-center transition-all hover:bg-indigo-50" data-flavor="Humita" data-status="active">
+                                HUMITA
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Cuerpo de Precios -->
+                    <div class="p-6 flex-grow hidden" id="sim-body-price">
+                        <h4 class="font-bold text-indigo-950 mb-3">Actualización Dinámica de Precios</h4>
+                        <p class="text-xs text-slate-500 mb-4">Ingresa el nuevo precio y presiona guardar para ver el cambio instantáneo en la pantalla de la sucursal.</p>
+                        
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <label class="block text-xs font-bold text-slate-700 mb-2">Precio de Venta Unitario ($)</label>
+                            <div class="flex gap-2">
+                                <input type="number" id="sim-price-input" value="1200" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-indigo-600 font-bold text-slate-800">
+                                <button id="sim-btn-save-price" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shrink-0">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cuerpo del Generador de Descripciones IA con Gemini -->
+                    <div class="p-6 flex-grow hidden space-y-4" id="sim-body-desc-ia">
+                        <h4 class="font-bold text-indigo-950">Generador de Copywriting Gastronómico IA</h4>
+                        <p class="text-xs text-slate-500">Genera descripciones irresistibles para tus sabores usando Gemini y aplícalas al menú para cautivar a los comensales.</p>
+
+                        <div class="grid grid-cols-2 gap-3 text-xs">
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1">Elegir Sabor</label>
+                                <select id="ia-flavor-selector" class="w-full p-2 border border-slate-300 rounded bg-white">
+                                    <option value="4 Quesos">4 Quesos</option>
+                                    <option value="Capresse">Capresse</option>
+                                    <option value="Carne Picante">Carne Picante</option>
+                                    <option value="Humita">Humita</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1">Tono de Escritura</label>
+                                <select id="ia-tone-selector" class="w-full p-2 border border-slate-300 rounded bg-white">
+                                    <option value="gourmet">Gourmet y Refinado</option>
+                                    <option value="tentador">Irresistible y Crujiente</option>
+                                    <option value="divertido">Moderno y Divertido</option>
+                                    <option value="light">Saludable e Informativo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button id="btn-generate-desc-ia" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 rounded-lg text-xs transition-colors">
+                            Generar Descripción Irresistible ✨
+                        </button>
+
+                        <div id="ia-desc-output-container" class="hidden p-3 bg-indigo-50 border border-indigo-100 rounded-lg text-xs">
+                            <span class="font-bold text-indigo-900 block mb-1">Texto Generado por Gemini:</span>
+                            <p id="ia-desc-output-text" class="text-slate-700 italic mb-3"></p>
+                            <button id="btn-apply-ia-desc" class="bg-amber-500 hover:bg-amber-600 text-indigo-950 font-bold py-1.5 px-3 rounded text-[10px] transition-all">
+                                Aplicar a Pantalla de TV ✨
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 border-t border-slate-100 text-xs text-slate-600 flex justify-between items-center">
+                        <span>Simulador de Realtime Supabase</span>
+                        <span class="text-emerald-600 font-bold flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Listo
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Pantalla Digital TV de la Sucursal -->
+                <div id="tv-simulation-container" class="bg-slate-950 rounded-2xl shadow-2xl overflow-hidden flex flex-col border-[12px] border-slate-900 relative group cursor-pointer" title="Haz clic en cualquier lado del monitor para emular Pantalla Completa">
+                    <div class="absolute top-4 right-4 bg-slate-800 text-slate-400 px-3 py-1 rounded-full text-[10px] font-mono tracking-widest flex items-center gap-1.5 z-10">
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span> RECEPTOR ONLINE
+                    </div>
+                    
+                    <div class="p-8 flex-grow flex flex-col justify-between min-h-[350px]">
+                        <div class="text-center mt-4">
+                            <h2 class="text-3xl font-extrabold text-white tracking-widest uppercase" style="font-family: Impact, sans-serif;">EMPANADAS TRADICIONALES</h2>
+                            <p class="text-amber-500 font-bold text-xl mt-2 tracking-wide" id="sim-tv-price">PRECIO UNITARIO: $1200</p>
+                        </div>
+
+                        <!-- Lista de Sabores Dinámicos en la Pantalla TV -->
+                        <div class="grid grid-cols-2 gap-x-8 gap-y-4 text-white text-lg font-bold my-8 transition-all duration-300" id="sim-tv-menu">
+                            <!-- Items adaptados para soportar subtítulo/descripción dinámica -->
+                            <div class="flex flex-col menu-item transition-all duration-300" id="sim-tv-item-4 Quesos">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-amber-500"></span> 4 QUESOS
+                                </div>
+                                <p class="text-[11px] text-slate-400 font-normal pl-4 mt-1 leading-snug italic max-w-xs" id="sim-tv-desc-4 Quesos"></p>
+                            </div>
+                            
+                            <div class="flex flex-col menu-item transition-all duration-300" id="sim-tv-item-Capresse">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-amber-500"></span> CAPRESSE
+                                </div>
+                                <p class="text-[11px] text-slate-400 font-normal pl-4 mt-1 leading-snug italic max-w-xs" id="sim-tv-desc-Capresse"></p>
+                            </div>
+                            
+                            <div class="flex flex-col menu-item transition-all duration-300" id="sim-tv-item-Carne Picante">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-amber-500"></span> CARNE PICANTE
+                                </div>
+                                <p class="text-[11px] text-slate-400 font-normal pl-4 mt-1 leading-snug italic max-w-xs" id="sim-tv-desc-Carne Picante"></p>
+                            </div>
+                            
+                            <div class="flex flex-col menu-item transition-all duration-300" id="sim-tv-item-Humita">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-amber-500"></span> HUMITA
+                                </div>
+                                <p class="text-[11px] text-slate-400 font-normal pl-4 mt-1 leading-snug italic max-w-xs" id="sim-tv-desc-Humita"></p>
+                            </div>
+                        </div>
+
+                        <div class="text-center text-[10px] text-slate-600 tracking-wider font-mono">
+                            SaboriApp TV Engine v2.5 - Haz clic para emular pantalla completa
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 5: MÉTRICAS DE ÉXITO Y PLANES DE PRECIOS -->
+        <section id="tab-precios" class="tab-content">
+            
+            <!-- Métricas Clave -->
+            <div class="mb-12">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <h2 class="text-3xl font-bold text-indigo-950">Métricas de Rendimiento y Satisfacción</h2>
+                    <p class="text-sm text-slate-600 mt-1">Cómo influye la digitalización del menú en el comportamiento del consumidor y la rentabilidad del local gastronómico.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Satisfacción de Clientes -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block mb-1">Satisfacción en Mostrador</span>
+                            <h3 class="text-lg font-bold text-slate-800 mb-2">Eliminación de la Frustración de Stock</h3>
+                            <p class="text-xs text-slate-500 mb-6">SaboriApp elimina el descontento de los clientes al no mostrar en pantalla productos agotados.</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="satisfactionStatsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Reducción de Tiempos de Configuración -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block mb-1">Eficiencia de Operadores</span>
+                            <h3 class="text-lg font-bold text-slate-800 mb-2">Reducción del Tiempo de Actualización de Precios</h3>
+                            <p class="text-xs text-slate-500 mb-6">Comparativa de tiempo requerido para realizar un cambio de precios en todos los salones.</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="priceUpdateTimeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planes de Precios -->
+            <div class="border-t pt-12">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <h2 class="text-3xl font-bold text-indigo-950">Estructura de Inversión Flexible</h2>
+                    <p class="text-slate-600 mt-2">Planes escalables diseñados para negocios de todos los tamaños, desde locales individuales hasta grandes cadenas franquiciadas.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Plan Emprendedor -->
+                    <div class="bg-white border border-slate-200 p-6 rounded-2xl flex flex-col justify-between shadow-sm relative">
+                        <div>
+                            <span class="px-2.5 py-0.5 bg-slate-100 text-slate-800 rounded-full text-[10px] font-bold uppercase">Básico</span>
+                            <h3 class="text-2xl font-bold text-slate-800 mt-3">Emprendedor</h3>
+                            <p class="text-xs text-slate-500 mt-1">Ideal para heladerías boutique o locales gastronómicos de barrio de una sucursal.</p>
+                            
+                            <div class="my-6">
+                                <span class="text-4xl font-extrabold text-indigo-950">$29</span>
+                                <span class="text-slate-500 text-xs">/ mes</span>
+                            </div>
+
+                            <ul class="space-y-3 text-slate-600 text-sm border-t pt-4">
+                                <li class="flex items-center gap-2">
+                                    <span class="text-emerald-600 font-bold">&#x2713;</span> 1 Sucursal Activa
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-emerald-600 font-bold">&#x2713;</span> Gestión de hasta 30 sabores
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-emerald-600 font-bold">&#x2713;</span> 1 Pantalla de visualización
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-emerald-600 font-bold">&#x2713;</span> Acceso a Menú QR dinámico
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="w-full mt-8 bg-indigo-900 text-white font-bold py-2 rounded-lg hover:bg-indigo-800 transition-colors text-sm">Comenzar Plan</button>
+                    </div>
+
+                    <!-- Plan Crecimiento -->
+                    <div class="bg-indigo-950 border-2 border-indigo-500 p-6 rounded-2xl flex flex-col justify-between shadow-md relative text-white">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-500 text-white text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-widest">
+                            Más Elegido
+                        </div>
+                        <div>
+                            <span class="px-2.5 py-0.5 bg-indigo-800 text-indigo-200 rounded-full text-[10px] font-bold uppercase">Multisucursal</span>
+                            <h3 class="text-2xl font-bold text-white mt-3">Crecimiento</h3>
+                            <p class="text-xs text-indigo-300 mt-1">Diseñado para marcas en expansión que buscan coordinar múltiples tiendas.</p>
+                            
+                            <div class="my-6">
+                                <span class="text-4xl font-extrabold text-white">$69</span>
+                                <span class="text-indigo-300 text-xs">/ mes</span>
+                            </div>
+
+                            <ul class="space-y-3 text-indigo-100 text-sm border-t border-indigo-900 pt-4">
+                                <li class="flex items-center gap-2">
+                                    <span class="text-amber-400 font-bold">&#x2713;</span> Hasta 3 Sucursales Activas
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-amber-400 font-bold">&#x2713;</span> Gestión ilimitada de sabores
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-amber-400 font-bold">&#x2713;</span> Hasta 3 pantallas por sucursal
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-amber-400 font-bold">&#x2713;</span> Reportes históricos de stock
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-amber-400 font-bold">&#x2713;</span> Soporte prioritario 24/7
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="w-full mt-8 bg-amber-500 text-indigo-950 font-bold py-2 rounded-lg hover:bg-amber-400 transition-colors text-sm">Adquirir Plan</button>
+                    </div>
+
+                    <!-- Plan Franquicia -->
+                    <div class="bg-white border border-slate-200 p-6 rounded-2xl flex flex-col justify-between shadow-sm relative">
+                        <div>
+                            <span class="px-2.5 py-0.5 bg-slate-100 text-slate-800 rounded-full text-[10px] font-bold uppercase">Enterprise</span>
+                            <h3 class="text-2xl font-bold text-slate-800 mt-3">Franquicia</h3>
+                            <p class="text-xs text-slate-500 mt-1">Para grandes corporaciones que necesitan integraciones a medida.</p>
+                            
+                            <div class="my-6">
+                                <span class="text-4xl font-extrabold text-indigo-950">$149</span>
+                                <span class="text-slate-500 text-xs">/ mes</span>
+                            </div>
+
+                            <ul class="space-y-3 text-slate-600 text-sm border-t pt-4">
+                                <li class="flex items-center gap-2">
+                                    <span class="text-emerald-600 font-bold">&#x2713;</span> Ilimitadas sucursales de la marca
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-emerald-600 font-bold">&#x2713;</span> Integraciones nativas API / POS
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-emerald-600 font-bold">&#x2713;</span> Marca blanca personalizada (White Label)
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-emerald-600 font-bold">&#x2713;</span> Soporte e implantación dedicada
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="w-full mt-8 bg-slate-900 text-white font-bold py-2 rounded-lg hover:bg-slate-800 transition-colors text-sm">Contactar Ventas</button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- TAB 6: SOPORTE (FAQ) -->
+        <section id="tab-faq" class="tab-content">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-indigo-900">Preguntas Frecuentes y Soporte Técnico</h2>
+                    <p class="text-sm text-slate-500 mt-1">Respuestas rápidas para resolver inconvenientes técnicos comunes en sucursal.</p>
+                </div>
+                
+                <div class="space-y-4 mb-12">
+                    <div class="faq-accordion bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+                        <button class="w-full px-6 py-4 text-left font-bold text-slate-800 bg-slate-50 hover:bg-slate-100 flex justify-between items-center transition-colors">
+                            <span>1. Desactivé un sabor en el panel administrativo pero sigue visible en la pantalla. ¿Qué hago?</span>
+                            <span class="text-indigo-500 text-xl font-mono shrink-0 faq-icon">+</span>
+                        </button>
+                        <div class="faq-content hidden px-6 py-4 text-slate-600 bg-white border-t border-slate-100">
+                            <ul class="list-disc list-inside space-y-2">
+                                <li><strong>Verificación de sucursal:</strong> Asegúrate de haber modificado la sucursal correcta en el panel de control antes de guardar.</li>
+                                <li><strong>Verificación de conexión a internet:</strong> Comprueba que el televisor del salón tenga acceso activo a internet. Al restablecerse la red, se actualizará solo de forma autónoma.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+                        <button class="w-full px-6 py-4 text-left font-bold text-slate-800 bg-slate-50 hover:bg-slate-100 flex justify-between items-center transition-colors">
+                            <span>2. ¿Es posible tener varias pantallas con distintos menús en una sola sucursal?</span>
+                            <span class="text-indigo-500 text-xl font-mono shrink-0 faq-icon">+</span>
+                        </button>
+                        <div class="faq-content hidden px-6 py-4 text-slate-600 bg-white border-t border-slate-100">
+                            <p>¡Sí, totalmente! SaboriApp permite crear <strong>Pantallas visuales por sucursal</strong> habilitando qué categoría específica deseamos mostrar en cada Smart TV. Una sola sucursal puede contar con múltiples pantallas con diferentes diseños (ej: un televisor exclusivo para empanadas tradicionales y otro para la línea gourmet o integrales).</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+                        <button class="w-full px-6 py-4 text-left font-bold text-slate-800 bg-slate-50 hover:bg-slate-100 flex justify-between items-center transition-colors">
+                            <span>3. ¿Qué requerimientos de hardware tienen las pantallas del local?</span>
+                            <span class="text-indigo-500 text-xl font-mono shrink-0 faq-icon">+</span>
+                        </button>
+                        <div class="faq-content hidden px-6 py-4 text-slate-600 bg-white border-t border-slate-100">
+                            <p>No se necesita hardware costoso o de última generación. SaboriApp funciona a través de un navegador web estándar. Cualquier televisor Smart TV convencional o dispositivo intermedio de transmisión (como TV Box o Chromecast) con conectividad web puede cargar la URL del salón de ventas y funcionar las 24 horas del día.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+                        <button class="w-full px-6 py-4 text-left font-bold text-slate-800 bg-slate-50 hover:bg-slate-100 flex justify-between items-center transition-colors">
+                            <span>4. ¿Cómo hago para que no se vean las barras del navegador en la TV?</span>
+                            <span class="text-indigo-500 text-xl font-mono shrink-0 faq-icon">+</span>
+                        </button>
+                        <div class="faq-content hidden px-6 py-4 text-slate-600 bg-white border-t border-slate-100">
+                            <p class="leading-relaxed">
+                                ¡Es muy sencillo! Una vez que abras el enlace de tu pantalla, con hacer un <strong>solo clic con el mouse en cualquier parte del monitor</strong> (o presioná cualquier tecla) el sistema activará automáticamente el <strong>"Modo Pantalla Completa"</strong>. Para salir, presioná la tecla <kbd class="bg-slate-100 border border-slate-300 rounded px-1.5 py-0.5 text-xs font-mono">Esc</kbd> en tu teclado.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ASISTENTE DE PREGUNTAS INTELIGENTE CON GEMINI (Relocalizado aquí) -->
+                <div class="bg-white rounded-2xl shadow-md border border-indigo-100 p-6 md:p-8 max-w-3xl mx-auto border-t-4 border-t-indigo-600">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-2xl">✨</span>
+                        <h3 class="text-xl font-bold text-indigo-950">Asistente de Preguntas SaboriApp IA</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6">
+                        ¿Tienes alguna duda sobre el uso, configuración o funcionamiento de SaboriApp? Selecciona o escribe tu consulta y nuestra Inteligencia Artificial de Gemini te preparará una respuesta clara de inmediato de forma neutral y profesional.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Selecciona una duda o consulta común</label>
+                            <select id="objection-selector" class="w-full p-3 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none focus:border-indigo-600 text-slate-800">
+                                <option value="custom">-- Escribir mi propia consulta o pregunta --</option>
+                                <option value="caro">"¿Cómo se puede justificar la inversión en este sistema frente a la cartelería convencional o pizarras de tiza?"</option>
+                                <option value="tecnologia">"¿Qué facilidades ofrece el sistema para operarios de mostrador o cocina que no se adaptan fácilmente a la tecnología?"</option>
+                                <option value="tv">"¿Es obligatorio comprar pantallas costosas de Smart TV para implementar el sistema?"</option>
+                                <option value="internet">"¿Qué ocurre con el menú de salón y el funcionamiento general si el local pierde la conexión a Internet temporalmente?"</option>
+                            </select>
+                        </div>
+
+                        <div id="custom-objection-container" class="block">
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Escribe tu consulta o duda personalizada</label>
+                            <textarea id="custom-objection-text" rows="2" placeholder="Ej. ¿Cómo puedo organizar los sabores de helado si tengo categorías de estación?" class="w-full p-3 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-indigo-600"></textarea>
+                        </div>
+
+                        <button id="btn-generate-pitch" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
+                            Obtener Respuesta ✨
+                        </button>
+                    </div>
+
+                    <!-- Contenedor de Respuesta IA -->
+                    <div id="objection-response-box" class="hidden mt-6 p-5 bg-indigo-50 border border-indigo-100 rounded-xl">
+                        <div class="flex justify-between items-center mb-2 pb-2 border-b border-indigo-100">
+                            <span class="text-xs font-bold text-indigo-800 uppercase tracking-wider">Respuesta Sugerida</span>
+                            
+                        </div>
+                        <div id="objection-response-text" class="text-sm text-slate-700 leading-relaxed space-y-2">
+                            <!-- Cargar Dinámicamente por la API -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // CONFIGURACIÓN GLOBAL E INTEGRACIÓN CON LA API DE GEMINI
+        const apiKey = ""; // La API key será provista en tiempo de ejecución de manera segura
+
+        // Función reutilizable con Exponential Backoff para llamar a Gemini 2.5 Flash
+        async function callGemini(prompt, systemInstruction = "") {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
+            if (systemInstruction) {
+                payload.systemInstruction = { parts: [{ text: systemInstruction }] };
+            }
+
+            let delay = 1000;
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    });
+                    if (response.ok) {
+                        const result = await response.json();
+                        return result.candidates?.[0]?.content?.parts?.[0]?.text || "No se recibió una respuesta válida de la IA.";
+                    }
+                } catch (e) {
+                    // Retry silently
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay *= 2;
+            }
+            throw new Error("No pudimos contactar con el servicio de IA de Gemini tras varios intentos. Verifica tu conexión.");
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // CONTROLADOR DE PESTAÑAS (TABS ROUTER)
+            const navBtns = document.querySelectorAll('.nav-btn');
+            const mobileNav = document.getElementById('mobile-nav');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            function switchTab(targetId) {
+                tabContents.forEach(content => content.classList.remove('active'));
+                navBtns.forEach(btn => {
+                    btn.classList.remove('active', 'bg-indigo-700', 'text-white');
+                    btn.classList.add('text-indigo-200');
+                });
+
+                const targetContent = document.getElementById(targetId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+                
+                const activeBtn = Array.from(navBtns).find(btn => btn.dataset.target === targetId);
+                if (activeBtn) {
+                    activeBtn.classList.add('active', 'bg-indigo-700', 'text-white');
+                    activeBtn.classList.remove('text-indigo-200');
+                }
+                
+                mobileNav.value = targetId;
+            }
+
+            navBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    switchTab(e.target.dataset.target);
+                });
+            });
+
+            mobileNav.addEventListener('change', (e) => {
+                switchTab(e.target.value);
+            });
+
+            // Enlace interactivo al hacer clic sobre el logo "SABORIAPP" en el Header
+            document.getElementById('header-logo-home').addEventListener('click', () => {
+                switchTab('tab-intro');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // INTEGRACIÓN: ASISTENTE DE PREGUNTAS (GEMINI) - AHORA EN FAQ
+            const objectionSelector = document.getElementById('objection-selector');
+            const customObjectionContainer = document.getElementById('custom-objection-container');
+            const customObjectionText = document.getElementById('custom-objection-text');
+            const btnGeneratePitch = document.getElementById('btn-generate-pitch');
+            const objectionResponseBox = document.getElementById('objection-response-box');
+            const objectionResponseText = document.getElementById('objection-response-text');
+            const btnCopyPitch = document.getElementById('btn-copy-pitch');
+
+            objectionSelector.addEventListener('change', () => {
+                if (objectionSelector.value === 'custom') {
+                    customObjectionContainer.style.display = 'block';
+                } else {
+                    customObjectionContainer.style.display = 'none';
+                }
+            });
+
+            btnGeneratePitch.addEventListener('click', async () => {
+                let objection = "";
+                if (objectionSelector.value === 'custom') {
+                    objection = customObjectionText.value.trim();
+                    if (!objection) {
+                        alert("Por favor, escribe una pregunta u objeción para continuar.");
+                        return;
+                    }
+                } else {
+                    objection = objectionSelector.options[objectionSelector.selectedIndex].text;
+                }
+
+                btnGeneratePitch.disabled = true;
+                btnGeneratePitch.innerHTML = `Analizando consulta... <span class="animate-ping ml-1">&#x2728;</span>`;
+                objectionResponseBox.classList.add('hidden');
+
+                const systemPrompt = `Actúas como un especialista de soporte técnico, éxito de clientes y servicio al usuario senior para SaboriApp, un sistema en la nube de administración y sincronización de menús en tiempo real.
+                Tu objetivo es responder a las preguntas de los clientes o usuarios de forma clara, empática, sumamente didáctica, veraz y estructurada.
+                DEBES USAR UN TONO NEUTRO de español de América Latina (evita regionalismos norteños como "chido", "onda", "órale", o regionalismos rioplatenses/sureños como "tenés", "viste", "sos", "che"). Utiliza el pronombre "tú" o "usted" de forma neutra y profesional, asegurando que cualquier usuario hispanohablante de la región comprenda perfectamente la explicación técnica o de valor.`;
+
+                try {
+                    const response = await callGemini(`Consulta del usuario: "${objection}" \n\nGenera una respuesta de soporte técnica y operativa clara de 2 o 3 párrafos cortos que disipe las dudas de forma asertiva y cordial.`, systemPrompt);
+                    objectionResponseText.innerHTML = response.replace(/\n/g, '<br>');
+                    objectionResponseBox.classList.remove('hidden');
+                } catch (error) {
+                    objectionResponseText.innerHTML = `<span class="text-rose-600 font-semibold">${error.message}</span>`;
+                    objectionResponseBox.classList.remove('hidden');
+                } finally {
+                    btnGeneratePitch.disabled = false;
+                    btnGeneratePitch.innerHTML = `Obtener Respuesta ✨`;
+                }
+            });
+
+            btnCopyPitch.addEventListener('click', () => {
+                const textToCopy = objectionResponseText.innerText;
+                const tempTextArea = document.createElement('textarea');
+                tempTextArea.value = textToCopy;
+                document.body.appendChild(tempTextArea);
+                tempTextArea.select();
+                try {
+                    document.execCommand('copy');
+                    btnCopyPitch.textContent = "¡Copiado!";
+                    setTimeout(() => { btnCopyPitch.textContent = "Copiar texto"; }, 2000);
+                } catch (err) {
+                    btnCopyPitch.textContent = "Error al copiar";
+                }
+                document.body.removeChild(tempTextArea);
+            });
+
+            // EXPLORADOR DE INTERFAZ (DETALLES MAESTROS)
+            const explorerNavBtns = document.querySelectorAll('.explorer-nav-btn');
+            const explorerBadge = document.getElementById('explorer-badge');
+            const explorerTitle = document.getElementById('explorer-title');
+            const explorerDesc = document.getElementById('explorer-desc');
+            const explorerAction = document.getElementById('explorer-action');
+            const explorerInfoPanel = document.getElementById('explorer-info-panel');
+
+            const interfaceExplorerData = {
+                'cats': {
+                    badge: 'ESTRUCTURA',
+                    title: 'Categorías de Menú',
+                    desc: 'Define las divisiones del menú para agrupar tus sabores lógicamente.',
+                    actionHtml: '<h4 class="font-bold text-slate-800 mb-1 border-b pb-1">Casos de Uso comunes:</h4><p class="text-sm text-slate-600">Crear categorías como "Cremas", "Frutales", "Veganos" o "Línea Integral" para mantener la consistencia del menú.</p>'
+                },
+                'sabores': {
+                    badge: 'MÓDULO DE CATÁLOGO',
+                    title: 'Sabores (Catálogo Global)',
+                    desc: 'Catálogo maestro donde se dan de alta y editan las preparaciones de la organización.',
+                    actionHtml: '<h4 class="font-bold text-slate-800 mb-1 border-b pb-1">Acciones de Ventas:</h4><p class="text-sm text-slate-600">Agrega fotos de alta resolución del producto e ingredientes para activar la tentación del consumidor.</p>'
+                },
+                'sucursales': {
+                    badge: 'ESTRUCTURA GEOGRÁFICA',
+                    title: 'Administración de Sucursales',
+                    desc: 'Controla qué sucursales están activas y vincula su stock independientemente.',
+                    actionHtml: '<h4 class="font-bold text-slate-800 mb-1 border-b pb-1">Capacidad:</h4><p class="text-sm text-slate-600">Define stock autónomo por sucursal evitando que una tienda venda un sabor no fabricado en su zona.</p>'
+                },
+                'pantallas': {
+                    badge: 'MÓDULO DE SALÓN',
+                    title: 'Pantallas Digitales (Smart TV)',
+                    desc: 'Vincula los televisores o monitores de salón directamente por sucursal.',
+                    actionHtml: '<h4 class="font-bold text-slate-800 mb-1 border-b pb-1">Flexibilidad Máxima:</h4><p class="text-sm text-slate-600">Habilita qué categorías se mostrarán por TV. Puedes tener múltiples pantallas con distintos diseños de manera unificada.</p>'
+                },
+                'usuarios': {
+                    badge: 'SEGURIDAD Y ROLES',
+                    title: 'Control de Usuarios de Tienda',
+                    desc: 'Asigna roles claros de acceso al personal de sucursal para resguardo de información.',
+                    actionHtml: '<h4 class="font-bold text-slate-800 mb-1 border-b pb-1">Control:</h4><p class="text-sm text-slate-600">Permite que el empleado de caja solo maneje stock, mientras que el supervisor o gerencia edita precios maestros.</p>'
+                },
+                'precios': {
+                    badge: 'ADMINISTRACIÓN Y LISTAS',
+                    title: 'Tarifas y Precios de Venta',
+                    desc: 'Edita listas globales de precios o precios diferenciados por sucursal.',
+                    actionHtml: '<h4 class="font-bold text-slate-800 mb-1 border-b pb-1">Sincronización:</h4><p class="text-sm text-slate-600">Al cambiar una tarifa en este panel, los precios exhibidos en los Smart TVs cambian en menos de 2 segundos.</p>'
+                }
+            };
+
+            explorerNavBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    explorerNavBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-indigo-600', 'text-white');
+                        b.classList.add('text-slate-300');
+                    });
+                    
+                    const clickedBtn = e.currentTarget;
+                    clickedBtn.classList.remove('text-slate-300');
+                    clickedBtn.classList.add('active', 'bg-indigo-600', 'text-white');
+
+                    const dataKey = clickedBtn.dataset.info;
+                    const data = interfaceExplorerData[dataKey];
+
+                    explorerInfoPanel.style.opacity = 0;
+                    
+                    setTimeout(() => {
+                        explorerBadge.textContent = data.badge;
+                        explorerTitle.textContent = data.title;
+                        explorerDesc.textContent = data.desc;
+                        explorerAction.innerHTML = data.actionHtml;
+                        explorerInfoPanel.style.opacity = 1;
+                    }, 200);
+                });
+            });
+
+            // SIMULADOR DE TIEMPO REAL (OPERACIONES)
+            const simBtnStock = document.getElementById('sim-btn-stock');
+            const simBtnPrice = document.getElementById('sim-btn-price');
+            const simBtnDescIa = document.getElementById('sim-btn-desc-ia');
+            
+            const simBodyStock = document.getElementById('sim-body-stock');
+            const simBodyPrice = document.getElementById('sim-body-price');
+            const simBodyDescIa = document.getElementById('sim-body-desc-ia');
+
+            const simTvPrice = document.getElementById('sim-tv-price');
+            const simPriceInput = document.getElementById('sim-price-input');
+            const simBtnSavePrice = document.getElementById('sim-btn-save-price');
+            const simTvMenu = document.getElementById('sim-tv-menu');
+
+            // Switcher de sub-pestañas en el simulador
+            function deactivateAllSimTabs() {
+                simBtnStock.className = "px-3 py-1 text-slate-700 text-xs font-semibold rounded hover:bg-slate-300";
+                simBtnPrice.className = "px-3 py-1 text-slate-700 text-xs font-semibold rounded hover:bg-slate-300";
+                simBtnDescIa.className = "px-3 py-1 text-slate-700 text-xs font-semibold rounded hover:bg-slate-300";
+                
+                simBodyStock.classList.add('hidden');
+                simBodyPrice.classList.add('hidden');
+                simBodyDescIa.classList.add('hidden');
+            }
+
+            simBtnStock.addEventListener('click', () => {
+                deactivateAllSimTabs();
+                simBtnStock.className = "px-3 py-1 bg-indigo-600 text-white text-xs font-semibold rounded";
+                simBodyStock.classList.remove('hidden');
+            });
+
+            simBtnPrice.addEventListener('click', () => {
+                deactivateAllSimTabs();
+                simBtnPrice.className = "px-3 py-1 bg-indigo-600 text-white text-xs font-semibold rounded";
+                simBodyPrice.classList.remove('hidden');
+            });
+
+            simBtnDescIa.addEventListener('click', () => {
+                deactivateAllSimTabs();
+                simBtnDescIa.className = "px-3 py-1 bg-indigo-600 text-white text-xs font-semibold rounded";
+                simBodyDescIa.classList.remove('hidden');
+            });
+
+            // Alternador de Stock individual
+            const simFlavorCards = document.querySelectorAll('.sim-flavor-card');
+            
+            function toggleSimulatorFlavor(card, flavorName) {
+                const currentStatus = card.dataset.status;
+                const tvItem = document.getElementById(`sim-tv-item-${flavorName}`);
+
+                if (currentStatus === 'active') {
+                    card.dataset.status = 'paused';
+                    card.classList.remove('border-indigo-600', 'text-indigo-950', 'hover:bg-indigo-50');
+                    card.classList.add('border-slate-300', 'text-slate-400', 'bg-slate-50', 'line-through');
+                    
+                    if (tvItem) {
+                        tvItem.style.opacity = '0';
+                        setTimeout(() => { tvItem.style.display = 'none'; }, 200);
+                    }
+                } else {
+                    card.dataset.status = 'active';
+                    card.classList.remove('border-slate-300', 'text-slate-400', 'bg-slate-50', 'line-through');
+                    card.classList.add('border-indigo-600', 'text-indigo-950', 'hover:bg-indigo-50');
+                    
+                    if (tvItem) {
+                        tvItem.style.display = 'flex';
+                        setTimeout(() => { tvItem.style.opacity = '1'; }, 50);
+                    }
+                }
+
+                // Efecto de parpadeo de actualización realtime
+                simTvMenu.classList.add('flash-update');
+                setTimeout(() => { simTvMenu.classList.remove('flash-update'); }, 800);
+            }
+
+            simFlavorCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const flavor = card.dataset.flavor;
+                    toggleSimulatorFlavor(card, flavor);
+                });
+            });
+
+            // Botón habilitar todo
+            document.getElementById('sim-btn-enable-all').addEventListener('click', () => {
+                simFlavorCards.forEach(card => {
+                    if (card.dataset.status === 'paused') {
+                        toggleSimulatorFlavor(card, card.dataset.flavor);
+                    }
+                });
+            });
+
+            // Botón inhabilitar todo
+            document.getElementById('sim-btn-disable-all').addEventListener('click', () => {
+                simFlavorCards.forEach(card => {
+                    if (card.dataset.status === 'active') {
+                        toggleSimulatorFlavor(card, card.dataset.flavor);
+                    }
+                });
+            });
+
+            // Guardar precio dinámico
+            simBtnSavePrice.addEventListener('click', () => {
+                const updatedPrice = simPriceInput.value;
+                if (updatedPrice) {
+                    simTvPrice.textContent = `PRECIO UNITARIO: $${updatedPrice}`;
+                    simTvPrice.classList.add('flash-update');
+                    setTimeout(() => { simTvPrice.classList.remove('flash-update'); }, 850);
+                    
+                    simBtnSavePrice.textContent = "¡Enviado!";
+                    setTimeout(() => { simBtnSavePrice.textContent = "Guardar"; }, 1500);
+                }
+            });
+
+            // INTEGRACIÓN: GENERADOR DE DESCRIPCIONES DE MENÚ CON GEMINI
+            const btnGenerateDescIa = document.getElementById('btn-generate-desc-ia');
+            const iaFlavorSelector = document.getElementById('ia-flavor-selector');
+            const iaToneSelector = document.getElementById('ia-tone-selector');
+            const iaDescOutputContainer = document.getElementById('ia-desc-output-container');
+            const iaDescOutputText = document.getElementById('ia-desc-output-text');
+            const btnApplyIaDesc = document.getElementById('btn-apply-ia-desc');
+
+            let currentGeneratedText = "";
+
+            btnGenerateDescIa.addEventListener('click', async () => {
+                const flavor = iaFlavorSelector.value;
+                const tone = iaToneSelector.value;
+
+                btnGenerateDescIa.disabled = true;
+                btnGenerateDescIa.textContent = "Redactando con Gemini IA...";
+                iaDescOutputContainer.classList.add('hidden');
+
+                const systemInstruction = `Actúas como un copywriter gastronómico experto. Tu especialidad es escribir descripciones ultra tentadoras, cortas y poéticas para el menú de un restaurante o heladería. El texto debe ser breve (máximo 14 palabras) para que quepa cómodamente en un menú digital de TV sin romper el diseño visual.`;
+
+                try {
+                    const text = await callGemini(`Redacta una descripción de menú para el sabor de empanada: "${flavor}" en un tono de escritura "${tone}". Evita comillas dobles y que sea directo.`, systemInstruction);
+                    currentGeneratedText = text.trim();
+                    iaDescOutputText.textContent = currentGeneratedText;
+                    iaDescOutputContainer.classList.remove('hidden');
+                } catch (err) {
+                    iaDescOutputText.innerHTML = `<span class="text-rose-600 font-bold">${err.message}</span>`;
+                    iaDescOutputContainer.classList.remove('hidden');
+                } finally {
+                    btnGenerateDescIa.disabled = false;
+                    btnGenerateDescIa.innerHTML = `Generar Descripción Irresistible ✨`;
+                }
+            });
+
+            btnApplyIaDesc.addEventListener('click', () => {
+                const flavor = iaFlavorSelector.value;
+                const tvDescElement = document.getElementById(`sim-tv-desc-${flavor}`);
+                if (tvDescElement) {
+                    tvDescElement.textContent = currentGeneratedText;
+                    tvDescElement.parentElement.classList.add('flash-update');
+                    setTimeout(() => { tvDescElement.parentElement.classList.remove('flash-update'); }, 1000);
+                    
+                    btnApplyIaDesc.textContent = "¡Aplicado a TV con Éxito!";
+                    setTimeout(() => { btnApplyIaDesc.innerHTML = `Aplicar a Pantalla de TV ✨`; }, 2000);
+                }
+            });
+
+            // Enlazar Botón de Ventas con el Simulador
+            document.getElementById('btn-highlight-demo').addEventListener('click', () => {
+                switchTab('tab-simulador');
+                const simSection = document.getElementById('simulador-section');
+                simSection.scrollIntoView({ behavior: 'smooth' });
+                simSection.classList.add('highlight-card');
+                setTimeout(() => {
+                    simSection.classList.remove('highlight-card');
+                }, 3000);
+            });
+
+            // INTERACTIVIDAD FULLSCREEN DE TV DE SIMULACIÓN
+            const tvContainer = document.getElementById('tv-simulation-container');
+            tvContainer.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    if (tvContainer.requestFullscreen) {
+                        tvContainer.requestFullscreen();
+                    } else if (tvContainer.webkitRequestFullscreen) { /* Safari */
+                        tvContainer.webkitRequestFullscreen();
+                    } else if (tvContainer.msRequestFullscreen) { /* IE11 */
+                        tvContainer.msRequestFullscreen();
+                    }
+                } else {
+                    document.exitFullscreen();
+                }
+            });
+
+            // COMPORTAMIENTO ACORDEÓN DE PREGUNTAS FRECUENTES (FAQ)
+            const faqs = document.querySelectorAll('.faq-accordion button');
+            faqs.forEach(faq => {
+                faq.addEventListener('click', () => {
+                    const content = faq.nextElementSibling;
+                    const icon = faq.querySelector('.faq-icon');
+                    
+                    if (content.classList.contains('hidden')) {
+                        content.classList.remove('hidden');
+                        icon.textContent = '-';
+                    } else {
+                        content.classList.add('hidden');
+                        icon.textContent = '+';
+                    }
+                });
+            });
+
+            // --- GRÁFICOS ANALÍTICOS (CHART.JS) ---
+
+            // Gráfico 1: Satisfacción de Clientes por exactitud del stock en menú
+            const ctxSatisfaction = document.getElementById('satisfactionStatsChart').getContext('2d');
+            new Chart(ctxSatisfaction, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Experiencia sin quiebres de menú', 'Frustración por producto ausente'],
+                    datasets: [{
+                        data: [97.8, 2.2],
+                        backgroundColor: [
+                            '#10b981', // Emerald-500
+                            '#f59e0b'  // Amber-500
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.parsed + '%';
+                                }
+                            }
+                        }
+                    },
+                    cutout: '72%'
+                }
+            });
+
+            // Gráfico 2: Tiempos de Actualización de Precios (Segundos)
+            const ctxUpdateTimes = document.getElementById('priceUpdateTimeChart').getContext('2d');
+            new Chart(ctxUpdateTimes, {
+                type: 'bar',
+                data: {
+                    labels: ['SaboriApp', 'Menú Magnético', 'Pizarra Tiza', 'Impresión'],
+                    datasets: [{
+                        label: 'Segundos para actualizar todas las pantallas',
+                        data: [1.2, 300, 600, 18000], // SaboriApp: 1.2s vs otros manuales
+                        backgroundColor: [
+                            '#4f46e5', // Indigo-600
+                            '#cbd5e1', 
+                            '#94a3b8',
+                            '#64748b'
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Barra horizontal
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'logarithmic',
+                            title: { display: true, text: 'Segundos (Log)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-      <style>
+    <style>
         .chart-container {
             position: relative;
             width: 100%;
@@ -80,7 +80,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <!-- Clickable Logo taking the user to INICIO -->
             <div class="flex items-center space-x-2 cursor-pointer select-none hover:text-indigo-200 transition-colors" id="header-logo-home">
-                <h1 class="text-2xl font-extrabold tracking-tight italic">SABORIAPP <span class="text-sm font-normal not-italic text-indigo-300 ml-2"> <br>Menú Digital Inteligente</span></h1>
+                <h1 class="text-2xl font-extrabold tracking-tight italic">SABORIAPP <span class="text-sm font-normal not-italic text-indigo-300 ml-2">Menú Digital Inteligente</span></h1>
             </div>
             <nav class="hidden lg:flex space-x-1 overflow-x-auto" id="main-nav">
                 <button class="nav-btn active px-4 py-2 rounded-md font-medium bg-indigo-700 text-white transition-colors" data-target="tab-intro">Inicio</button>
@@ -118,7 +118,7 @@
                 
                 <p class="text-base md:text-lg text-slate-700 leading-relaxed max-w-3xl mx-auto mb-6">
                     Ayudamos a los locales gastronómicos a digitalizar su stock en tiempo real con un sistema que conecta el panel de control directamente con las pantallas del local. 
-                    Si marcas un sabor como <strong class="text-indigo-900 font-semibold">'agotado'</strong>  desaparece de la vista del público al instante.
+                    Si marcas un sabor como <strong class="text-indigo-900 font-semibold">'agotado'</strong> en tu teléfono, desaparece de la vista del público al instante.
                 </p>
                 
                 <div class="p-4 bg-amber-50 rounded-xl border border-amber-100 max-w-2xl mx-auto mb-8">
@@ -149,10 +149,13 @@
                     </video>
                 </div>
                 
-                
+                <div class="mt-4 flex justify-between items-center bg-slate-800 p-3 rounded-lg text-xs text-slate-300">
+                    <span>Muestra esta demo interactiva para captar clientes en segundos.</span>
+                    <button class="bg-indigo-600 text-white font-bold py-1 px-3 rounded hover:bg-indigo-500 transition-colors" onclick="document.getElementById('promo-video').play()">Reproducir</button>
+                </div>
             </div>
 
-           
+            <!-- Diagrama de Flujo del Ecosistema (Eliminado el 4to bloque de Menú QR) -->
             <div class="bg-indigo-900 text-white rounded-2xl p-8 shadow-md">
                 <h3 class="text-xl font-bold mb-3 text-center text-amber-400">Arquitectura e Intercambio de Datos en Tiempo Real</h3>
                 <p class="text-sm text-indigo-200 text-center mb-8 max-w-2xl mx-auto">
@@ -775,8 +778,8 @@
                     <!-- Contenedor de Respuesta IA -->
                     <div id="objection-response-box" class="hidden mt-6 p-5 bg-indigo-50 border border-indigo-100 rounded-xl">
                         <div class="flex justify-between items-center mb-2 pb-2 border-b border-indigo-100">
-                            <span class="text-xs font-bold text-indigo-800 uppercase tracking-wider">Respuesta Sugerida</span>
-                            
+                            <span class="text-xs font-bold text-indigo-800 uppercase tracking-wider">Respuesta de Soporte Sugerida</span>
+                            <button id="btn-copy-pitch" class="text-xs text-indigo-600 hover:underline">Copiar texto</button>
                         </div>
                         <div id="objection-response-text" class="text-sm text-slate-700 leading-relaxed space-y-2">
                             <!-- Cargar Dinámicamente por la API -->
